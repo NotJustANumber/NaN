@@ -1,0 +1,6 @@
+include 'nan-server-kotlin'
+
+
+rootProject.name = 'nan-root'
+
+
