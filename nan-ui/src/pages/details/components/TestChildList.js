@@ -1,5 +1,4 @@
 import React from "react";
-import { DurationIcon, FailIcon, SkippedIcon } from "../../../components/Icons";
 import PassedTest from "./PassedTest";
 import FailedTest from "./FailedTest";
 import SkippedTest from "./SkippedTest";
