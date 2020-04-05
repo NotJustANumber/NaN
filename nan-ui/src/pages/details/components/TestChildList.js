@@ -8,7 +8,7 @@ const failed = "FAILED";
 const skipped = "SKIPPED";
 
 function TestChildList(props) {
-  const getByStatus = result => {
+  const getByStatus = (result) => {
     if (result.status === success) {
       return <PassedTest result={result}></PassedTest>;
     } else if (result.status === failed) {
@@ -17,7 +17,9 @@ function TestChildList(props) {
       return <SkippedTest result={result}></SkippedTest>;
     }
   };
-  return <div className="child-area">{getByStatus(props.result)}</div>;
+  return (
+    <div className="child-area my-2 py-2">{getByStatus(props.result)}</div>
+  );
 }
 
 export default TestChildList;

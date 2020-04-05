@@ -19,18 +19,14 @@ class JunitReportSummary {
     var name: String = ""
     var duration: Long = 0
 
-    @JsonProperty("total_tests")
-    var totalTests: Int = 0
-        get() = passedTests + failedTests + skippedTests
+    var total: Int = 0
+        get() = passed + failed + skipped
 
-    @JsonProperty("passed_tests")
-    var passedTests = 0
+    var passed = 0
 
-    @JsonProperty("failed_tests")
-    var failedTests = 0
+    var failed = 0
 
-    @JsonProperty("skipped_tests")
-    var skippedTests = 0
+    var skipped = 0
 
     @CreatedDate
     @JsonProperty("created")

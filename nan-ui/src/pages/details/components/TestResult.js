@@ -4,17 +4,26 @@ import TestChildList from "./TestChildList";
 
 function TestResult(props) {
   return (
-    <React.Fragment>
+    <div style={props.style}>
       {props?.result?.container ? (
-        <TestParent result={props.result}>
-          {props?.result?.children.map(s => (
-            <TestResult result={s} key={s.name}></TestResult>
-          ))}
+        <TestParent
+          selectKey={props.selectKey}
+          current={props.current}
+          result={props.result}
+        >
+          {/* {props?.result?.children.map((s, index) => (
+            <TestResult
+              selectKey={props.selectKey}
+              current={index}
+              result={s}
+              key={s.name}
+            ></TestResult>
+          ))} */}
         </TestParent>
       ) : (
         <TestChildList result={props.result}></TestChildList>
       )}
-    </React.Fragment>
+    </div>
   );
 }
 

@@ -15,13 +15,13 @@ function TotalReport() {
   }, []);
 
   return (
-    <div className="">
+    <div className="p-5">
       <div className="flex items-center justify-between ml-3">
         <div className="flex flex-col items-center">
           <span className="total-projects text-gray-600 text-base ">
             Projects
           </span>
-          <span className="count flex items-center text-gray-700 text-xl">
+          <span className="count flex items-center text-gray-700 mt-2 text-xl">
             {total[0]}
           </span>
         </div>
@@ -30,7 +30,7 @@ function TotalReport() {
           <span className="total-projects text-gray-600 text-base ">
             Total Tests
           </span>
-          <span className="count flex items-center text-gray-700 text-xl">
+          <span className="count flex items-center text-gray-700 mt-2 text-xl">
             <TotalTestsIcon className="text-sm mr-1"></TotalTestsIcon>
             {total[1]}
           </span>
@@ -40,7 +40,7 @@ function TotalReport() {
           <span className="total-projects text-gray-600 text-base ">
             Total Passes
           </span>
-          <span className="count flex items-center text-gray-700 text-xl">
+          <span className="count flex items-center text-gray-700 mt-2 text-xl">
             <PassIcon className="text-sm mr-1"></PassIcon>
             {total[2]}
           </span>
@@ -50,7 +50,7 @@ function TotalReport() {
           <span className="total-projects text-gray-600 text-base ">
             Total failure
           </span>
-          <span className="count flex items-center text-gray-700 text-xl">
+          <span className="count flex items-center text-gray-700 mt-2 text-xl">
             <FailIcon className="text-sm mr-1"></FailIcon>
             {total[3]}
           </span>
@@ -60,7 +60,7 @@ function TotalReport() {
           <span className="total-projects text-gray-600 text-base ">
             Total skipped
           </span>
-          <span className="count flex items-center text-gray-700 text-xl">
+          <span className="count flex items-center text-gray-700 mt-2 text-xl">
             <SkippedIcon className="text-sm mr-1"></SkippedIcon>
             {total[4]}
           </span>

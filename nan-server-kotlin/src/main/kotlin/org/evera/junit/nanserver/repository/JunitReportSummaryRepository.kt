@@ -14,6 +14,6 @@ interface JunitReportSummaryRepository : CrudRepository<JunitReportSummary?, Lon
 
     fun findByName(name: String?): Optional<JunitReportSummary?>
 
-    @get:Query(value = "SELECT count(*),sum(total_tests),sum(passed_tests),sum(failed_tests),sum(skipped_tests) FROM JUNIT_REPORT_SUMMARY ", nativeQuery = true)
+    @get:Query(value = "SELECT count(*),sum(total),sum(passed),sum(failed),sum(skipped) FROM JUNIT_REPORT_SUMMARY ", nativeQuery = true)
     val totalCount: Optional<Any?>
 }

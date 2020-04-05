@@ -10,7 +10,7 @@ function ResultDetails() {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    Axios.get("/v1/junit/report/details/" + id).then(s => setResults(s.data));
+    Axios.get("/v1/junit/report/details/" + id).then((s) => setResults(s.data));
   }, []);
 
   const summary = results?.summary;
@@ -20,7 +20,7 @@ function ResultDetails() {
       <div className="container mx-auto my-10">
         <div className="header-area flex items-center">
           <div className="test-name w-4/12">
-            <div className="text-indigo-600 font-medium text-2xl">
+            <div className="text-indigo-600 font-medium text-2xl capitalize">
               {summary?.name}
             </div>
             <IndividualSummary summary={summary}></IndividualSummary>

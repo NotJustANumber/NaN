@@ -2,7 +2,7 @@ import React from "react";
 import {
   TotalTestsIcon,
   FailIcon,
-  DurationIcon
+  DurationIcon,
 } from "../../../components/Icons";
 
 function IndividualSummary(props) {
@@ -13,7 +13,7 @@ function IndividualSummary(props) {
         <div className="test-unit-summary flex items-center mr-4">
           <TotalTestsIcon className="mr-1"></TotalTestsIcon>
           <div className="text-gray-600 text-center text-lg">
-            {summary?.total_tests}
+            {summary?.total}
           </div>
           <div className="text-gray-600 text-sm mx-1">Tests</div>
         </div>
@@ -21,7 +21,7 @@ function IndividualSummary(props) {
         <div className="test-unit-summary flex items-center mr-4">
           <FailIcon className="mr-1"></FailIcon>
           <div className="text-gray-600 text-center text-lg">
-            {summary?.failed_tests}
+            {summary?.failed}
           </div>
           <div className="text-gray-600 text-sm mx-1">Failed</div>
         </div>

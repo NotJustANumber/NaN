@@ -31,16 +31,22 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
 
     fun reportToSummaryMapper(data: JunitReportData): JunitReportSummary {
         buildIndividualParentData(data);
-        val summary = resultRepository.findByName(data.name).orElse(JunitReportSummary())!!
+        val summary = JunitReportSummary()
         summary.name = data.name
-        val totalTests: Map<String, Int> = getRecursively(data.getChildren(), data.getChildren()).filter { !it.isContainer }.distinct().groupingBy { it.status }.eachCount()
-        summary.passedTests = getCount(totalTests, TestExecutionResult.Status.SUCCESSFUL.toString())
-        summary.failedTests = (getCount(totalTests, TestExecutionResult.Status.FAILED.toString())
-                + getCount(totalTests, TestExecutionResult.Status.ABORTED.toString()))
-        summary.skippedTests = getCount(totalTests, "SKIPPED")
-        summary.totalTests = summary.failedTests + summary.passedTests + summary.skippedTests
+        summary.passed = data.passed
+        summary.skipped = data.skipped
+        summary.failed = data.failed
         summary.duration = data.duration
         return summary
+    }
+
+    private fun calculateCount(data: JunitReportData, summary: JunitReportSummary) {
+        val totalTests: Map<String, Int> = getRecursively(data.getChildren(), data.getChildren()).filter { !it.isContainer }.distinct().groupingBy { it.status }.eachCount()
+        summary.passed = getCount(totalTests, TestExecutionResult.Status.SUCCESSFUL.toString())
+        summary.failed = (getCount(totalTests, TestExecutionResult.Status.FAILED.toString())
+                + getCount(totalTests, TestExecutionResult.Status.ABORTED.toString()))
+        summary.skipped = getCount(totalTests, "SKIPPED")
+        summary.total = summary.failed + summary.passed + summary.skipped
     }
 
     private fun buildIndividualParentData(data: JunitReportData) {

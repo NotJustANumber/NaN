@@ -6,6 +6,7 @@ import org.evera.junit.nanserver.services.ReportService
 import org.springframework.web.bind.annotation.*
 import java.util.*
 import java.util.stream.Stream
+import javax.validation.Valid
 
 /**
  * @author ABIR
@@ -14,7 +15,7 @@ import java.util.stream.Stream
 @RequestMapping("/v1/junit/report")
 class JunitReportEndpoint(private val service: ReportService) {
     @PostMapping("/upload")
-    fun uploadJunitData(@RequestBody inputData: Set<JunitReportData>) {
+    fun uploadJunitData(@Valid @RequestBody inputData: Set<JunitReportData>) {
         service.saveReport(inputData)
     }
 

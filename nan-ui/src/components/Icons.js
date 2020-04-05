@@ -6,7 +6,8 @@ import {
   TagsTwoTone,
   WarningTwoTone,
   RightOutlined,
-  DownOutlined
+  DownOutlined,
+  ArrowLeftOutlined,
 } from "@ant-design/icons";
 function PassIcon(props) {
   return (
@@ -47,6 +48,10 @@ function Expanded(props) {
   return <DownOutlined className={props.className} />;
 }
 
+function Back(props) {
+  return <ArrowLeftOutlined className={props.className} />;
+}
+
 export {
   PassIcon,
   FailIcon,
@@ -54,5 +59,6 @@ export {
   DurationIcon,
   TotalTestsIcon,
   Collapsed,
-  Expanded
+  Expanded,
+  Back,
 };
