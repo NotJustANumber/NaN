@@ -21,7 +21,12 @@ function TestParent(props) {
   }
 
   return (
-    <div className="test-parent-row px-2  hover:border-indigo-500  border">
+    <div
+      className={
+        "test-parent-row px-2  hover:border-indigo-500  border " +
+        (props.current % 2 === 0 ? "row-even" : "bg-gray-100")
+      }
+    >
       <div
         className="individual-section cursor-pointer my-2 py-2  "
         onClick={setVisible}
@@ -54,8 +59,8 @@ function TestParent(props) {
               {result.skipped}
             </div>
             <div className="duration w-2/12 flex items-center">
-              <DurationIcon className="mr-2"></DurationIcon>
-              {result.duration}
+              {/* <DurationIcon className="mr-2"></DurationIcon> */}
+              {result.duration / 1000}s
             </div>
           </div>
         </div>

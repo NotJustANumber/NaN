@@ -25,7 +25,7 @@ function ResultDetails() {
             </div>
             <IndividualSummary summary={summary}></IndividualSummary>
           </div>
-          <div className="success-rate w-4/12">
+          <div className="success-rate w-4/12 flex justify-center">
             <div className="text-xl  text-teal-600">
               98% <span className="text-base">Success rate</span>
             </div>

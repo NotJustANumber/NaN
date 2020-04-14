@@ -29,7 +29,7 @@ function IndividualSummary(props) {
         <div className="test-unit-summary flex items-center mr-4">
           <DurationIcon className=" text-gray-500 mr-1"></DurationIcon>
           <div className="text-gray-600 text-center text-lg">
-            {summary?.duration}
+            {summary?.duration / 1000}
           </div>
           <div className="text-gray-600 text-sm mx-1">Seconds</div>
         </div>

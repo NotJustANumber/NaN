@@ -18,7 +18,13 @@ function TestChildList(props) {
     }
   };
   return (
-    <div className="child-area my-2 py-2">{getByStatus(props.result)}</div>
+    <div
+      className={
+        " child-area " + (props.current % 2 === 0 ? "row-even" : "bg-gray-100")
+      }
+    >
+      {getByStatus(props.result)}
+    </div>
   );
 }
 

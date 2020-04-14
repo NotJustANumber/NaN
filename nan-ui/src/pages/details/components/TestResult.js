@@ -21,7 +21,7 @@ function TestResult(props) {
           ))} */}
         </TestParent>
       ) : (
-        <TestChildList result={props.result}></TestChildList>
+        <TestChildList current={props.current} result={props.result}></TestChildList>
       )}
     </div>
   );

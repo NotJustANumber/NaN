@@ -54,8 +54,8 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
     }
 
     private fun calculateTestData(data: JunitReportData, children: Set<JunitReportData>) {
-        children.filter { it.isContainer }.forEach { it -> it.getChildren()?.let { it1 -> calculateTestData(it, it1) } }
-        val individual = children.filter { it -> !it.isContainer }.groupBy { it -> it.status }
+        children.filter { it.isContainer }.forEach { it.getChildren()?.let { it1 -> calculateTestData(it, it1) } }
+        val individual = children.filter { !it.isContainer }.groupBy { it -> it.status }
         data.passed = individual.getOrElse(TestExecutionResult.Status.SUCCESSFUL.toString()) { emptyList() }.size
         data.failed = individual.getOrElse(TestExecutionResult.Status.FAILED.toString()) { emptyList() }.size
         data.skipped = individual.getOrElse("SKIPPED") { emptyList() }.size
@@ -96,8 +96,8 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
     }
 
     fun saveXmlReport(xmlString: String) {
-        val legacySuite = mapper.readValue<LegacyTestSuite>(xmlString, LegacyTestSuite::class.java)
-        val report = convertToJunitReport(legacySuite);
+        val legacySuite = mapper.readValue(xmlString, LegacyTestSuite::class.java)
+        val report = convertToJunitReport(legacySuite)
         saveReport(setOf(report))
     }
 

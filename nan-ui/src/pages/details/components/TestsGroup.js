@@ -63,10 +63,8 @@ function TestGroup(props) {
     );
   };
 
-  console.log(result?.length);
-
   return (
-    <div className="mt-5 w-11/12">
+    <div className="mt-5">
       <div className="header  border-b border-gray-700 flex p-5 pb-3 text-gray-600 flex justify-between items-center">
         <div className="column-1 w-7/12 text-xl">Feature</div>
         <div className="count-header w-5/12 flex">
@@ -83,8 +81,8 @@ function TestGroup(props) {
           <Back></Back>
         </button>
       ) : null}
-      <div className="result-section mt-2  bg-white border shadow-lg   rounded-md">
-        {result ? (
+      <div className="result-section mt-2  bg-white border shadow-lg rounded-md">
+        {result?.length > 20 ? (
           <List
             className="List"
             height={900}
@@ -93,7 +91,9 @@ function TestGroup(props) {
           >
             {TestArea}
           </List>
-        ) : null}
+        ) : (
+          result?.map((s, index) => TestArea({ index }))
+        )}
       </div>
     </div>
   );
