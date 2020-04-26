@@ -6,9 +6,43 @@ import { FixedSizeList as List } from "react-window";
 
 function TestGroup(props) {
   const fullResult = props?.results?.resultString;
-
   const [key, setKey] = useState("");
   const [result, setResult] = useState(fullResult);
+  const [isFiltered, setFilter] = useState(false);
+  const [tempResult, saveTemp] = useState([]);
+
+  const filterFailedTest = () => {
+    const filterSelection = !isFiltered;
+    setFilter(filterSelection);
+    if (filterSelection) {
+      saveTemp([...result]);
+      setResult(filterResult());
+    } else {
+      setResult(tempResult);
+    }
+  };
+
+  const filterResult = () => {
+    if (result) {
+      const data = result
+        .flatMap((s) => getRecursiveChildren(s))
+        .filter((s) => s !== null)
+        .filter((s) => s.status === "FAILED");
+      return data;
+    }
+    return result;
+  };
+
+  const getRecursiveChildren = (r) => {
+    if (r && r.children && ((r.failed && r.failed > 0) || !r.container)) {
+      return r.container
+        ? r.children
+            .flatMap((k) => getRecursiveChildren(k))
+            .filter((s) => s !== null)
+        : r;
+    }
+    return null;
+  };
 
   React.useEffect(() => {
     setResult(fullResult);
@@ -65,6 +99,16 @@ function TestGroup(props) {
 
   return (
     <div className="mt-5">
+      <label class="md:w-2/3 block text-gray-500">
+        <input
+          class="mr-2 mx-3 leading-tight"
+          checked={isFiltered}
+          onChange={filterFailedTest}
+          type="checkbox"
+        />
+        <span class="text-sm">Show me failed tests</span>
+      </label>
+
       <div className="header  border-b border-gray-700 flex p-5 pb-3 text-gray-600 flex justify-between items-center">
         <div className="column-1 w-7/12 text-xl">Feature</div>
         <div className="count-header w-5/12 flex">
