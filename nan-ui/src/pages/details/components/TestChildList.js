@@ -5,7 +5,7 @@ import SkippedTest from "./SkippedTest";
 
 const success = "SUCCESSFUL";
 const failed = "FAILED";
-const skipped = "SKIPPED";
+// const skipped = "SKIPPED";
 
 function TestChildList(props) {
   const getByStatus = (result) => {

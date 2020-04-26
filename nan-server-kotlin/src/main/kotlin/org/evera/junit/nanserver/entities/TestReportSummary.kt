@@ -12,7 +12,7 @@ import javax.persistence.*
  */
 @Entity
 @EntityListeners(AuditingEntityListener::class)
-class JunitReportSummary {
+class TestReportSummary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0

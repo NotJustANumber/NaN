@@ -12,7 +12,7 @@ function Welcome() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    axios.get("/v1/junit/report/").then((s) => setProjects(s.data));
+    axios.get("/v1/test/report/").then((s) => setProjects(s.data));
   }, []);
 
   //

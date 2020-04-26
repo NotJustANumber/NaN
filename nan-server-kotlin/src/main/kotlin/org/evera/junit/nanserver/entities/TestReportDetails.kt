@@ -13,7 +13,7 @@ import javax.persistence.*
  */
 @Entity
 @EntityListeners(AuditingEntityListener::class)
-class JunitReportDetails {
+class TestReportDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0
@@ -26,7 +26,7 @@ class JunitReportDetails {
     var createdDate: Date? = null
 
     @Transient
-    var result: Set<JunitReportData>? = null
+    var result: Set<TestReportData>? = null
         set(result) {
             field = result
             try {
@@ -38,7 +38,7 @@ class JunitReportDetails {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    var summary: JunitReportSummary? = null
+    var summary: TestReportSummary? = null
 
     companion object {
         @Transient

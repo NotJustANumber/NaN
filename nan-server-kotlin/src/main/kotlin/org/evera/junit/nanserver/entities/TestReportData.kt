@@ -2,10 +2,10 @@ package org.evera.junit.nanserver.entities
 
 import org.junit.platform.engine.TestExecutionResult
 
-class JunitReportData {
+class TestReportData {
     var name: String = ""
     var duration: Long = 0
-    private var children: MutableSet<JunitReportData>? = null
+    private var children: MutableSet<TestReportData>? = null
     var status: String = TestExecutionResult.successful().toString()
     var throwable: String? = null
     var isContainer = false
@@ -14,18 +14,18 @@ class JunitReportData {
     var failed = 0;
     var skipped = 0;
 
-    fun addChildren(data: JunitReportData) {
+    fun addChildren(data: TestReportData) {
         if (children == null) {
             children = mutableSetOf()
         }
         children!!.add(data)
     }
 
-    fun getChildren(): Set<JunitReportData>? {
+    fun getChildren(): Set<TestReportData>? {
         return children
     }
 
-    fun setChildren(children: MutableSet<JunitReportData>?) {
+    fun setChildren(children: MutableSet<TestReportData>?) {
         this.children = children
     }
 

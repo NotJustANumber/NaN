@@ -1,13 +1,13 @@
 package org.evera.junit.nanserver.services
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
-import org.evera.junit.nanserver.entities.JunitReportData
-import org.evera.junit.nanserver.entities.JunitReportDetails
-import org.evera.junit.nanserver.entities.JunitReportSummary
+import org.evera.junit.nanserver.entities.TestReportData
+import org.evera.junit.nanserver.entities.TestReportDetails
+import org.evera.junit.nanserver.entities.TestReportSummary
 import org.evera.junit.nanserver.entities.legacy.LegacyTestCase
 import org.evera.junit.nanserver.entities.legacy.LegacyTestSuite
-import org.evera.junit.nanserver.repository.JunitReportDetailsRepository
-import org.evera.junit.nanserver.repository.JunitReportSummaryRepository
+import org.evera.junit.nanserver.repository.TestReportDetailsRepository
+import org.evera.junit.nanserver.repository.TestReportSummaryRepository
 import org.junit.platform.engine.TestExecutionResult
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.stereotype.Service
@@ -16,22 +16,22 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
 @Service
-class ReportService(private val resultRepository: JunitReportSummaryRepository,
-                    private val detailsRepository: JunitReportDetailsRepository) {
+class ReportService(private val resultRepository: TestReportSummaryRepository,
+                    private val detailsRepository: TestReportDetailsRepository) {
 
     val mapper = Jackson2ObjectMapperBuilder().createXmlMapper(true).build<XmlMapper>();
 
-    fun saveReport(inputData: Set<JunitReportData>) {
-        val savedSummary: Set<JunitReportSummary> = resultRepository
-                .saveAll(inputData.map { data: JunitReportData -> reportToSummaryMapper(data) }).toHashSet()
+    fun saveReport(inputData: Set<TestReportData>) {
+        val savedSummary: Set<TestReportSummary> = resultRepository
+                .saveAll(inputData.map { data: TestReportData -> reportToSummaryMapper(data) }).toHashSet()
         val summaryMap = savedSummary.map { it.name to it }.toMap()
         detailsRepository
-                .saveAll(inputData.map { s: JunitReportData -> reportToDetailsMapper(s, summaryMap) })
+                .saveAll(inputData.map { s: TestReportData -> reportToDetailsMapper(s, summaryMap) })
     }
 
-    fun reportToSummaryMapper(data: JunitReportData): JunitReportSummary {
+    fun reportToSummaryMapper(data: TestReportData): TestReportSummary {
         buildIndividualParentData(data);
-        val summary = JunitReportSummary()
+        val summary = TestReportSummary()
         summary.name = data.name
         summary.passed = data.passed
         summary.skipped = data.skipped
@@ -40,7 +40,7 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
         return summary
     }
 
-    private fun calculateCount(data: JunitReportData, summary: JunitReportSummary) {
+    private fun calculateCount(data: TestReportData, summary: TestReportSummary) {
         val totalTests: Map<String, Int> = getRecursively(data.getChildren(), data.getChildren()).filter { !it.isContainer }.distinct().groupingBy { it.status }.eachCount()
         summary.passed = getCount(totalTests, TestExecutionResult.Status.SUCCESSFUL.toString())
         summary.failed = (getCount(totalTests, TestExecutionResult.Status.FAILED.toString())
@@ -49,11 +49,11 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
         summary.total = summary.failed + summary.passed + summary.skipped
     }
 
-    private fun buildIndividualParentData(data: JunitReportData) {
+    private fun buildIndividualParentData(data: TestReportData) {
         data.getChildren()?.let { calculateTestData(data, it) }
     }
 
-    private fun calculateTestData(data: JunitReportData, children: Set<JunitReportData>) {
+    private fun calculateTestData(data: TestReportData, children: Set<TestReportData>) {
         children.filter { it.isContainer }.forEach { it.getChildren()?.let { it1 -> calculateTestData(it, it1) } }
         val individual = children.filter { !it.isContainer }.groupBy { it -> it.status }
         data.passed = individual.getOrElse(TestExecutionResult.Status.SUCCESSFUL.toString()) { emptyList() }.size
@@ -68,15 +68,15 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
         }
     }
 
-    private fun getRecursively(parent: Set<JunitReportData>?, children: Set<JunitReportData>?): Set<JunitReportData> {
+    private fun getRecursively(parent: Set<TestReportData>?, children: Set<TestReportData>?): Set<TestReportData> {
         if (children != null) {
             return children.flatMap { getRecursively(children, it.getChildren()) }.toHashSet()
         }
         return parent!!
     }
 
-    private fun reportToDetailsMapper(data: JunitReportData, summaryMap: Map<String, JunitReportSummary>): JunitReportDetails {
-        val details = JunitReportDetails()
+    private fun reportToDetailsMapper(data: TestReportData, summaryMap: Map<String, TestReportSummary>): TestReportDetails {
+        val details = TestReportDetails()
         details.result = data.getChildren()
         details.summary = summaryMap[data.name]
         return details
@@ -87,7 +87,7 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
         return Optional.ofNullable(totalTests[failed]).orElseGet { 0 }
     }
 
-    fun getSummary(): Stream<JunitReportSummary?> {
+    fun getSummary(): Stream<TestReportSummary?> {
         return StreamSupport.stream(resultRepository.findAll().spliterator(), false)
     }
 
@@ -101,8 +101,8 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
         saveReport(setOf(report))
     }
 
-    private fun convertToJunitReport(legacySuite: LegacyTestSuite): JunitReportData {
-        val reportData = JunitReportData()
+    private fun convertToJunitReport(legacySuite: LegacyTestSuite): TestReportData {
+        val reportData = TestReportData()
         reportData.name = legacySuite.name;
         reportData.duration = (legacySuite.time * 1000).toLong()
         reportData.isContainer = true
@@ -111,8 +111,8 @@ class ReportService(private val resultRepository: JunitReportSummaryRepository,
 
     }
 
-    private fun covertCaseToReport(testCase: LegacyTestCase): JunitReportData {
-        val reportData = JunitReportData()
+    private fun covertCaseToReport(testCase: LegacyTestCase): TestReportData {
+        val reportData = TestReportData()
         reportData.name = testCase.name;
         reportData.duration = (testCase.time * 1000).toLong()
         reportData.isContainer = false

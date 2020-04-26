@@ -1,7 +1,7 @@
 package org.evera.junit.nanserver.controller
 
-import org.evera.junit.nanserver.entities.JunitReportData
-import org.evera.junit.nanserver.entities.JunitReportSummary
+import org.evera.junit.nanserver.entities.TestReportData
+import org.evera.junit.nanserver.entities.TestReportSummary
 import org.evera.junit.nanserver.services.ReportService
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -12,15 +12,15 @@ import javax.validation.Valid
  * @author ABIR
  */
 @RestController
-@RequestMapping("/v1/junit/report")
-class JunitReportEndpoint(private val service: ReportService) {
+@RequestMapping("/v1/test/report")
+class TestReportEndpoint(private val service: ReportService) {
     @PostMapping("/upload")
-    fun uploadJunitData(@Valid @RequestBody inputData: Set<JunitReportData>) {
+    fun uploadTestData(@Valid @RequestBody inputData: Set<TestReportData>) {
         service.saveReport(inputData)
     }
 
     @get:GetMapping
-    val junitData: Stream<JunitReportSummary?>
+    val testData: Stream<TestReportSummary?>
         get() = service.getSummary()
 
     @get:GetMapping("/total")

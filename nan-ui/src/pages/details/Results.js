@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import IndividualSummary from "./components/IndividualSummary";
-import TestGroup from "./components/TestsGroup";
 import Axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FailIcon, PassIcon } from "../../components/Icons";
+import IndividualSummary from "./components/IndividualSummary";
+import TestGroup from "./components/TestsGroup";
 
 function ResultDetails() {
   let { id } = useParams();
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    Axios.get("/v1/junit/report/details/" + id).then((s) => setResults(s.data));
+    Axios.get("/v1/test/report/details/" + id).then((s) => setResults(s.data));
   }, []);
 
   const summary = results?.summary;

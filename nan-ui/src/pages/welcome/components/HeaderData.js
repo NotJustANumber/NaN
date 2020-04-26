@@ -11,7 +11,7 @@ function TotalReport() {
   const [total, setTotal] = useState([]);
 
   useEffect(() => {
-    axios.get("/v1/junit/report/total").then(s => setTotal(s.data));
+    axios.get("/v1/test/report/total").then(s => setTotal(s.data));
   }, []);
 
   return (

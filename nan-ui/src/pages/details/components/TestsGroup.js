@@ -45,13 +45,13 @@ function TestGroup(props) {
       updateResult("");
       return;
     }
-    const newKey = key.substr(0, key.length - 2);
+    const newKey = key.substr(0, key.lastIndexOf("."));
+    console.log("The key selected : ", newKey, key);
     setKey(newKey);
     updateResult(newKey);
   };
 
   const TestArea = ({ index, style }) => {
-    console.log(index);
     return (
       <TestResult
         style={style}

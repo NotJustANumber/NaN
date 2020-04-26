@@ -1,22 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  TotalTestsIcon,
-  PassIcon,
   FailIcon,
-  DurationIcon,
+  PassIcon,
   SkippedIcon,
-  Collapsed,
-  Expanded,
+  TotalTestsIcon,
 } from "../../../components/Icons";
 
 function TestParent(props) {
-  const [isShown, makeVisible] = useState(false);
-
   const result = props.result;
-
   function setVisible(e) {
     e.preventDefault();
-    makeVisible(!isShown);
     props.selectKey(props.current);
   }
 
@@ -26,11 +19,9 @@ function TestParent(props) {
         "test-parent-row px-2  hover:border-indigo-500  border " +
         (props.current % 2 === 0 ? "row-even" : "bg-gray-100")
       }
+      onClick={setVisible}
     >
-      <div
-        className="individual-section cursor-pointer my-2 py-2  "
-        onClick={setVisible}
-      >
+      <div className="individual-section cursor-pointer my-2 py-2  ">
         <div className="data-test flex  flex items-center">
           {/* {isShown ? (
             <Expanded className="text-gray-600 text-sm" />
@@ -65,7 +56,7 @@ function TestParent(props) {
           </div>
         </div>
       </div>
-      {isShown ? props.children : null}
+      {/* {isShown ? props.children : null} */}
     </div>
   );
 }
