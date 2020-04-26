@@ -154,3 +154,5 @@ gradle-app.setting
 /nan-server-kotlin/gradle/wrapper
 /.vscode
 /.settings
+db
+static
