@@ -27,7 +27,7 @@ Currently supports exporting test results from Gradle.
   
 More can be find at  [NaN Gradle plugin](https://github.com/NotJustANumber/nan-gradle-plugin)
 
-### Future implementation includes:
+### Will work on other adapters includes:
 
   1. Maven
   2. Jest
