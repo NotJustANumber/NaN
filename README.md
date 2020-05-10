@@ -1,9 +1,12 @@
 # NaN 
+
 ### Not just a Number
 
-Test results dashboard for all your test.
+Dashboard for  your test results.
 
 Can upload various test results and view them in beautifully crafted UI
+
+## Welcome page:
 
 ![Home page Design](https://raw.githubusercontent.com/abishekram/NaN/master/screenshots/nan-welcome.png)
 
