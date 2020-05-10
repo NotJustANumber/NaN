@@ -21,7 +21,9 @@ Wanna check demo with prepopulated data Try :
 
 Server will be available in http://localhost:8080
 
-Currently supports exporting test results from Gradle.
+Currently supports exporting test results from Gradle. 
+  
+    More can be find at  [NaN Gradle plugin](https://github.com/NotJustANumber/nan-gradle-plugin)
 
 Future implementation includes:
 
