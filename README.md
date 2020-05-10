@@ -6,7 +6,7 @@ Dashboard for all your test results.
 
 ![Home page Design](https://raw.githubusercontent.com/abishekram/NaN/master/screenshots/nan-welcome.png)
 
-If you are maintaing  multiple versions of an application, to view status of test results is a detious process. 
+Viewing over status of tests from various version of application , requires custom implementation.
 
 NaN can be your single point of all your test results.
 
