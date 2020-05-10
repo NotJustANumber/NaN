@@ -23,7 +23,7 @@ Server will be available in http://localhost:8080
 
 Currently supports exporting test results from Gradle.
 
-Future implementation include:
+Future implementation includes:
 
   1. Maven
   2. Jest
