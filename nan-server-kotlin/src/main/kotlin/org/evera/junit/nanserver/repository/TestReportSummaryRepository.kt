@@ -10,7 +10,9 @@ import java.util.stream.Stream
 
 @Repository
 interface TestReportSummaryRepository : CrudRepository<TestReportSummary?, Long?> {
+
     fun findAllByNameOrderByCreatedDateDesc(name: String): Stream<TestReportData?>?
+
 
     fun findByName(name: String?): Optional<TestReportSummary?>
 

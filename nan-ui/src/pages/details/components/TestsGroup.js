@@ -99,18 +99,19 @@ function TestGroup(props) {
 
   return (
     <div className="mt-5">
-      <label class="md:w-2/3 block text-gray-500">
-        <input
-          class="mr-2 mx-3 leading-tight"
-          checked={isFiltered}
-          onChange={filterFailedTest}
-          type="checkbox"
-        />
-        <span class="text-sm">Show me failed tests</span>
-      </label>
-
       <div className="header  border-b border-gray-700 flex p-5 pb-3 text-gray-600 flex justify-between items-center">
-        <div className="column-1 w-7/12 text-xl">Feature</div>
+        <div className="column-1 w-7/12  flex text-xl">
+          Feature
+          <label class="md:w-2/3 block text-gray-500">
+            <input
+              class="mr-2 mx-3 leading-tight"
+              checked={isFiltered}
+              onChange={filterFailedTest}
+              type="checkbox"
+            />
+            <span class="text-sm">Show me failed tests</span>
+          </label>
+        </div>
         <div className="count-header w-5/12 flex">
           <div className="w-3/12">Total</div>
           <div className="w-3/12">Passed</div>

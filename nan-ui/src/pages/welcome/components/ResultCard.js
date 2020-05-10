@@ -3,19 +3,13 @@ import { useHistory } from "react-router-dom";
 
 function ResultCard(props) {
   let history = useHistory();
-  // console.log(props.project);
-
-  let cardSize = 6;
-  if (props.project.total > 10000) {
-    cardSize = 7;
-  }
-
   return (
     <div
       className={
-        "col-span-" +
-        cardSize +
-        " rounded hover:border-indigo-600 border border-gray-500 mx-3 mt-5 overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl"
+        (props.project.total > 10000
+          ? "col-span-7"
+          : "col-span-6") +
+            " rounded hover:border-indigo-600 border border-gray-500 mx-3 mt-5 overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl"
       }
       onClick={() => history.push("/" + props.project.id)}
     >

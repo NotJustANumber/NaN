@@ -22,21 +22,30 @@ class ReportService(private val resultRepository: TestReportSummaryRepository,
     val mapper = Jackson2ObjectMapperBuilder().createXmlMapper(true).build<XmlMapper>();
 
     fun saveReport(inputData: Set<TestReportData>) {
-        val savedSummary: Set<TestReportSummary> = resultRepository
-                .saveAll(inputData.map { data: TestReportData -> reportToSummaryMapper(data) }).toHashSet()
-        val summaryMap = savedSummary.map { it.name to it }.toMap()
+        val summaryMap = saveSummary(inputData)
         detailsRepository
                 .saveAll(inputData.map { s: TestReportData -> reportToDetailsMapper(s, summaryMap) })
     }
 
+    private fun saveSummary(inputData: Set<TestReportData>): Map<String, TestReportSummary> {
+
+        val savedSummary: Set<TestReportSummary> = inputData.map { data -> reportToSummaryMapper(data) }
+                .map { s -> resultRepository.save(s) }
+                .toHashSet()
+//        val savedSummary: Set<TestReportSummary> = resultRepository
+//                .saveAll(inputData.map { data: TestReportData -> reportToSummaryMapper(data) }).toHashSet()
+        return savedSummary.map { it.name to it }.toMap()
+    }
+
     fun reportToSummaryMapper(data: TestReportData): TestReportSummary {
-        buildIndividualParentData(data);
-        val summary = TestReportSummary()
+//        buildIndividualParentData(data)
+        val summary: TestReportSummary = resultRepository.findByName(data.name).orElse(TestReportSummary())!!
         summary.name = data.name
         summary.passed = data.passed
         summary.skipped = data.skipped
         summary.failed = data.failed
         summary.duration = data.duration
+        summary.total = data.passed + data.skipped + data.failed
         return summary
     }
 
@@ -78,6 +87,7 @@ class ReportService(private val resultRepository: TestReportSummaryRepository,
     private fun reportToDetailsMapper(data: TestReportData, summaryMap: Map<String, TestReportSummary>): TestReportDetails {
         val details = TestReportDetails()
         details.result = data.getChildren()
+        details.status = data.failed == 0
         details.summary = summaryMap[data.name]
         return details
     }

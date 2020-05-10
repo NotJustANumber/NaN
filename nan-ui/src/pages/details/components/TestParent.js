@@ -29,7 +29,7 @@ function TestParent(props) {
             <Collapsed className="text-gray-600 text-sm"></Collapsed>
           )} */}
 
-          <span className="text-lg text-indigo-600 px-2 w-7/12 overflow-hidden">
+          <span className="text-md text-indigo-600 px-2 w-7/12 overflow-hidden">
             {result.name}
           </span>
           <div className="test-count-section flex w-5/12 mx-2 text-gray-600">

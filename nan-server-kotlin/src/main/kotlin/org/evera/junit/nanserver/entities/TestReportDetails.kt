@@ -18,6 +18,8 @@ class TestReportDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0
 
+    var status = false
+
     @Lob
     @JsonRawValue
     var resultString: String? = null
