@@ -1,30 +1,24 @@
-import React from 'react';
-import Welcome from "./pages/welcome/Welcome";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from "react-router-dom";
-import ResultDetails from './pages/details/Results';
-import Header from './components/Header';
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Header from "./components/Header";
+
+const Welcome = lazy(() => import("./pages/welcome/Welcome"));
+const ResultDetails = lazy(() => import("./pages/details/Results"));
 
 function App() {
-    return (
-        <div className="App">
-            <Router>
-                <Header />
-
-                <Switch>
-                    <Route exact path="/">
-                        <Welcome></Welcome>
-                    </Route>
-                    <Route path="/:id" children={<ResultDetails />} />
-                </Switch>
-
-            </Router>
-
-        </div>
-    );
+  return (
+    <div className="App">
+      <Router basename="/app">
+        <Header />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route exact path="/" component={Welcome}></Route>
+            <Route path="/:id" component={ResultDetails} />
+          </Switch>
+        </Suspense>
+      </Router>
+    </div>
+  );
 }
 
 export default App;

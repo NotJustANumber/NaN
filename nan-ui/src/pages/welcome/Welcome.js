@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy } from "react";
 import ResultCard from "./components/ResultCard";
 import TotalReport from "./components/HeaderData";
 import grid from "../../styles/grid.svg";
@@ -53,7 +53,7 @@ function Welcome() {
 
       <div className="my-40 quote-area flex justify-center items-center">
         <span className="text-2xl text-gray-600">
-         " Great products was build by great team "
+          " Great products was build by great team "
         </span>
       </div>
     </div>

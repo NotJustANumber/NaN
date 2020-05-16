@@ -8,6 +8,25 @@ import {
 
 function TestParent(props) {
   const result = props.result;
+
+  function getFailedCount(result) {
+    return (
+      <React.Fragment>
+        <FailIcon className="mr-2"></FailIcon>
+        {result}
+      </React.Fragment>
+    );
+  }
+
+  function getSkippedCount(result) {
+    return (
+      <React.Fragment>
+        <SkippedIcon className="mr-2"></SkippedIcon>
+        {result}
+      </React.Fragment>
+    );
+  }
+
   function setVisible(e) {
     e.preventDefault();
     props.selectKey(props.current);
@@ -21,15 +40,15 @@ function TestParent(props) {
       }
       onClick={setVisible}
     >
-      <div className="individual-section cursor-pointer my-2 py-2  ">
-        <div className="data-test flex  flex items-center">
+      <div className="individual-section cursor-pointer my-3 py-2  ">
+        <div className="data-test flex  justify-center items-center">
           {/* {isShown ? (
             <Expanded className="text-gray-600 text-sm" />
           ) : (
             <Collapsed className="text-gray-600 text-sm"></Collapsed>
           )} */}
 
-          <span className="text-md text-indigo-600 px-2 w-7/12 overflow-hidden">
+          <span className="text-md text-indigo-600 px-2 w-7/12 truncate">
             {result.name}
           </span>
           <div className="test-count-section flex w-5/12 mx-2 text-gray-600">
@@ -42,12 +61,10 @@ function TestParent(props) {
               {result.passed}
             </div>
             <div className="total-failed w-2/12 flex items-center">
-              <FailIcon className="mr-2"></FailIcon>
-              {result.failed}
+              {result.failed == 0 ? "-" : getFailedCount(result.failed)}
             </div>
             <div className="total-skipped w-2/12 flex items-center">
-              <SkippedIcon className="mr-2"></SkippedIcon>
-              {result.skipped}
+              {result.skipped == 0 ? "-" : getSkippedCount(result.skipped)}
             </div>
             <div className="duration w-2/12 flex items-center">
               {/* <DurationIcon className="mr-2"></DurationIcon> */}

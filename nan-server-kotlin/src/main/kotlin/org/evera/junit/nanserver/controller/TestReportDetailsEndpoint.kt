@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 class TestReportDetailsEndpoint(private val detailsRepository: TestReportDetailsRepository) {
     @GetMapping("/{id}")
     fun getDetails(@PathVariable id: Long): TestReportDetails {
-        return detailsRepository.findTop1BySummary_IdOrderByCreatedDateDesc(id).get()
+        return detailsRepository.findTop1BySummary_IdOrderByCreatedDesc(id).get()
     }
 
     @GetMapping("/{id}/history")

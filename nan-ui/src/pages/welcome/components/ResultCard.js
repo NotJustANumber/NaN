@@ -6,16 +6,17 @@ function ResultCard(props) {
   return (
     <div
       className={
-        (props.project.total > 10000
-          ? "col-span-7"
-          : "col-span-6") +
-            " rounded hover:border-indigo-600 border border-gray-500 mx-3 mt-5 overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl"
+        (props.project.total > 12000 ? "col-span-7" : "col-span-6") +
+        " rounded hover:border-indigo-600 border border-gray-500 mx-3 mt-5 overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl"
       }
       onClick={() => history.push("/" + props.project.id)}
     >
       <div className="card-header bg-gray-100 px-6 py-3">
         <div className="text-indigo-600 capitalize text-lg font-medium report-name">
-          {props.project.name}
+          {props.project.name.split(":")[0]}
+        </div>
+        <div className="text-indigo-600 text-xs my-1">
+          {props.project.name.split(":")[1]}
         </div>
         <div className="report-secondary-data mt-2 flex">
           <div className="report-total-test text-xs text-gray-600  mr-3">

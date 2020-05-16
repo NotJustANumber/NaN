@@ -13,7 +13,7 @@ plugins {
 group = "org.evera.junit"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
-jib.to.image = "nanserver/nan-demo"
+jib.to.image = "nanserver/nan"
 
 repositories {
     mavenCentral()

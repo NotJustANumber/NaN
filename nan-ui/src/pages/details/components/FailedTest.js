@@ -11,10 +11,14 @@ function FailedTest(props) {
   }
 
   return (
-    <div className="test-child cursor-pointer px-8 my-2 py-1 text-gray-700 flex flex-col items-start mx-auto">
-      <div className="result" onClick={setVisible}>
+    <div
+      className="test-child cursor-pointer px-8 my-2 py-1 text-gray-700 
+    flex flex-col items-start mx-auto"
+      onClick={setVisible}
+    >
+      <div className="result">
         <FailIcon className="mr-3"></FailIcon>
-        <span className="w-9/12 overflow-hidden">{result.name}</span>
+        <span className="w-9/12 truncate">{result.name}</span>
       </div>
 
       <div className="duration-area mt-1 text-sm text-gray-500 flex items-center">

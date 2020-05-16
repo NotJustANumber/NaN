@@ -34,13 +34,17 @@ function TestGroup(props) {
   };
 
   const getRecursiveChildren = (r) => {
-    if (r && r.children && ((r.failed && r.failed > 0) || !r.container)) {
-      return r.container
+    console.log("Getting for ", r);
+    if ((r && r.children && r.failed && r.failed > 0) || !r.container) {
+      const childs = r.container
         ? r.children
             .flatMap((k) => getRecursiveChildren(k))
             .filter((s) => s !== null)
         : r;
+      console.log(childs);
+      return childs;
     }
+    console.log("Returning null");
     return null;
   };
 
@@ -102,15 +106,17 @@ function TestGroup(props) {
       <div className="header  border-b border-gray-700 flex p-5 pb-3 text-gray-600 flex justify-between items-center">
         <div className="column-1 w-7/12  flex text-xl">
           Feature
-          <label class="md:w-2/3 block text-gray-500">
-            <input
-              class="mr-2 mx-3 leading-tight"
-              checked={isFiltered}
-              onChange={filterFailedTest}
-              type="checkbox"
-            />
-            <span class="text-sm">Show me failed tests</span>
-          </label>
+          {result && result?.some((s) => s.failed != 0) ? (
+            <label className="md:w-2/3 block text-gray-500">
+              <input
+                className="mr-2 mx-3 leading-tight"
+                checked={isFiltered}
+                onChange={filterFailedTest}
+                type="checkbox"
+              />
+              <span className="text-sm">Show me failed tests</span>
+            </label>
+          ) : null}
         </div>
         <div className="count-header w-5/12 flex">
           <div className="w-3/12">Total</div>
@@ -122,7 +128,7 @@ function TestGroup(props) {
       </div>
 
       {key ? (
-        <button onClick={goBack}>
+        <button className="my-4" onClick={goBack}>
           <Back></Back>
         </button>
       ) : null}
@@ -132,7 +138,7 @@ function TestGroup(props) {
             className="List"
             height={900}
             itemCount={result?.length}
-            itemSize={68}
+            itemSize={74}
           >
             {TestArea}
           </List>

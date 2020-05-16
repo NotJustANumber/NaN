@@ -25,7 +25,7 @@ class TestReportDetails {
     var resultString: String? = null
 
     @CreatedDate
-    var createdDate: Date? = null
+    var created: Date? = null
 
     @Transient
     var result: Set<TestReportData>? = null

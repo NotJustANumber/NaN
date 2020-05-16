@@ -5,7 +5,7 @@ function SkippedTest(props) {
   return (
     <div className="test-child px-8 text-gray-700 py-2 flex items-center mx-auto">
       <SkippedIcon className="mr-3"></SkippedIcon>
-      <span className="overflow-hidden">{props.result.name}</span>
+      <span className="truncate">{props.result.name}</span>
     </div>
   );
 }

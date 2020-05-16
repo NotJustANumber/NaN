@@ -12,8 +12,8 @@ import java.util.*
 @Repository
 interface TestReportDetailsRepository : CrudRepository<TestReportDetails?, Long?> {
 
-    fun findTop1BySummary_IdOrderByCreatedDateDesc(id: Long): Optional<TestReportDetails>;
+    fun findTop1BySummary_IdOrderByCreatedDesc(id: Long): Optional<TestReportDetails>;
 
-    @Query(value = "SELECT status FROM TEST_REPORT_DETAILS where SUMMARY_ID = ?1", nativeQuery = true)
+    @Query(value = "SELECT status FROM TEST_REPORT_DETAILS where SUMMARY_ID = ?1 Limit 0, 5", nativeQuery = true)
     fun history(id: Long): List<Array<Any?>?>?
 }

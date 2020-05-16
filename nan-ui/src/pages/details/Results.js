@@ -6,17 +6,21 @@ import IndividualSummary from "./components/IndividualSummary";
 import TestGroup from "./components/TestsGroup";
 
 function getStatusIcon(s) {
-  return s === true ? (
-    <React.Fragment>
-      <PassIcon></PassIcon>
-      <span className="text-gray-600 mx-1">--</span>
-    </React.Fragment>
-  ) : (
-    <React.Fragment>
-      <FailIcon></FailIcon>
-      <span className="text-gray-600 mx-1">--</span>
-    </React.Fragment>
-  );
+  if (s) {
+    return (
+      <React.Fragment>
+        <PassIcon></PassIcon>
+        <span className="text-gray-600 mx-1">--</span>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <FailIcon></FailIcon>
+        <span className="text-gray-600 mx-1">--</span>
+      </React.Fragment>
+    );
+  }
 }
 
 function ResultDetails() {
@@ -36,23 +40,25 @@ function ResultDetails() {
   return (
     <div className="Report-Summary tracking-tight">
       <div className="container mx-auto my-8">
-        <div className="header-area flex items-center">
+        <div className="header-area flex justify-between items-center">
           <div className="test-name w-4/12">
             <div className="text-indigo-600 font-medium text-2xl capitalize">
               {summary?.name}
             </div>
             <IndividualSummary summary={summary}></IndividualSummary>
           </div>
-          <div className="success-rate w-4/12 flex justify-center">
+          {/* <div className="success-rate w-4/12 flex justify-center">
             <div className="text-2xl  text-teal-600">
               {Math.round((summary?.passed / summary?.total) * 10000) / 100 +
                 " % "}
               <span className="text-base text-gray-600">Test success rate</span>
             </div>
-          </div>
+          </div> */}
 
           <div className="histrory w-4/12">
-            <div className="text-xl text-gray-600">History</div>
+            <div className="text-xl text-gray-600">
+              History ({summary?.passed} Tests passed)
+            </div>
             <div className="old-results flex items-center mt-1 text-xl">
               {history ? (
                 history?.map((s) => getStatusIcon(s))

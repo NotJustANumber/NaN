@@ -30,10 +30,10 @@ class TestReportSummary {
 
     @CreatedDate
     @JsonProperty("created")
-    var createdDate: Date? = null
+    var created: Date? = null
 
     @LastModifiedDate
     @JsonProperty("modified")
-    var modifiedDate: Date? = null
+    var modified: Date? = null
 
 }
